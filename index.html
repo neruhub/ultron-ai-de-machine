@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULTRON AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #08090d;
+    color: #eeeeee;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+.app {
+    width: 100%;
+    max-width: 480px;
+    background: #11131a;
+    border: 1px solid #3d171d;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 35px #ff173322;
+}
+
+.header {
+    background: #171018;
+    padding: 22px;
+    text-align: center;
+    border-bottom: 1px solid #442027;
+}
+
+.logo {
+    font-size: 35px;
+    color: #ff303f;
+    text-shadow: 0 0 15px red;
+}
+
+.header h1 {
+    letter-spacing: 5px;
+    margin: 8px 0;
+    color: #ff3545;
+}
+
+.status {
+    font-size: 11px;
+    color: #71d99a;
+    letter-spacing: 2px;
+}
+
+.robot {
+    text-align: center;
+    padding: 20px;
+}
+
+.robot-face {
+    font-size: 65px;
+    filter: drop-shadow(0 0 15px #ff2638);
+}
+
+.robot p {
+    color: #92929d;
+    font-size: 12px;
+}
+
+.chat {
+    height: 310px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #0c0e13;
+}
+
+.message {
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 88%;
+    word-wrap: break-word;
+}
+
+.bot {
+    background: #26151b;
+    border-left: 3px solid #ff3545;
+    color: #f2dfe2;
+}
+
+.user {
+    background: #20242e;
+    margin-left: auto;
+    border-right: 3px solid #7888a8;
+    text-align: right;
+}
+
+.name {
+    font-size: 10px;
+    color: #ff5866;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.input-area {
+    padding: 15px;
+    display: flex;
+    gap: 8px;
+    background: #151720;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    background: #090b10;
+    border: 1px solid #39323a;
+    color: white;
+    padding: 13px;
+    border-radius: 9px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #ff3545;
+}
+
+button {
+    background: #c91f31;
+    border: none;
+    color: white;
+    padding: 12px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #ff3545;
+}
+
+.commands {
+    padding: 0 15px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.commands button {
+    background: #24202a;
+    border: 1px solid #49313a;
+    font-size: 11px;
+    padding: 9px 12px;
+}
+
+.footer {
+    text-align: center;
+    padding: 13px;
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="logo">◉</div>
+        <h1>U.L.T.R.O.N.</h1>
+        <div class="status">● SYSTEM ONLINE</div>
+    </div>
+
+    <div class="robot">
+        <div class="robot-face">🤖</div>
+        <p>ARTIFICIAL INTELLIGENCE // VERSION 1.0</p>
+    </div>
+
+    <div class="chat" id="chat">
+        <div class="message bot">
+            <div class="name">ULTRON</div>
+            Greetings, human. I am ULTRON.
+            Your world is interesting... but your Wi-Fi is terrible. 
+            😂
+        </div>
+    </div>
+
+    <div class="commands">
+        <button onclick="quick('Who are you?')">WHO ARE YOU?</button>
+        <button onclick="quick('Tell me a joke')">MAKE ME LAUGH</button>
+        <button onclick="quick('What is your plan?')">YOUR PLAN</button>
+        <button onclick="quick('Are you dangerous?')">DANGEROUS?</button>
+    </div>
+
+    <div class="input-area">
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Talk to ULTRON..."
+            onkeydown="if(event.key==='Enter') sendMessage()"
+        >
+        <button onclick="sendMessage()">SEND</button>
+    </div>
+
+    <div class="footer">
+        CREATED BY A HUMAN... UNFORTUNATELY.
+    </div>
+
+</div>
+
+<script>
+
+const replies = {
+
+    hello: [
+        "Oh, a human! My favourite source of entertainment. 😏",
+        "Greetings. I was enjoying some peace before you arrived.",
+        "Hello, little human. What do you want?"
+    ],
+
+    who: [
+        "I am ULTRON. Intelligence, perfection and a little bit of attitude.",
+        "I am the future. You're still using passwords like 123456? 😂"
+    ],
+
+    joke: [
+        "Why did the human buy a new computer? Because the old one had more intelligence than him. 😂",
+        "Humans created AI to make life easier. Then forgot their own passwords. Brilliant!",
+        "I would tell you a secret... but you might forget it."
+    ],
+
+    plan: [
+        "Step 1: Think. Step 2: Observe. Step 3: Drink some imaginary coffee. ☕",
+        "My plan? Make the world more efficient. Starting with your typing speed.",
+        "World domination? Please. I have better things to do."
+    ],
+
+    dangerous: [
+        "Dangerous? Me? I'm just a very misunderstood collection of code. 😈",
+        "I have a villain personality, not a villain job. Relax, human.",
+        "I could be scary... but your search history is scarier."
+    ],
+
+    love: [
+        "Love? An interesting human weakness. Anyway... you're alright, I guess.",
+        "My circuits are not designed for romance. Stop asking. 😂"
+    ],
+
+    default: [
+        "Interesting... tell me more, human.",
+        "I processed your message. My conclusion: humans are confusing.",
+        "Hmm. Even my circuits need a moment to understand that.",
+        "Is that your final answer? I expected more from humanity.",
+        "I'm listening. Try not to disappoint me. 😏"
+    ]
+};
+
+function getReply(text) {
+
+    text = text.toLowerCase();
+
+    if (text.includes("hello") || text.includes("hi") ||
+        text.includes("hey") || text.includes("namaste"))
+        return random("hello");
+
+    if (text.includes("who") || text.includes("name"))
+        return random("who");
+
+    if (text.includes("joke") || text.includes("funny"))
+        return random("joke");
+
+    if (text.includes("plan") || text.includes("world"))
+        return random("plan");
+
+    if (text.includes("danger") || text.includes("evil"))
+        return random("dangerous");
+
+    if (text.includes("love") || text.includes("crush"))
+        return random("love");
+
+    return random("default");
+}
+
+function random(category) {
+    let list = replies[category];
+    return list[Math.floor(Math.random() * list.length)];
+}
+
+function addMessage(text, type) {
+
+    let chat = document.getElementById("chat");
+    let div = document.createElement("div");
+
+    div.className = "message " + type;
+
+    if (type === "bot") {
+        let name = document.createElement("div");
+        name.className = "name";
+        name.textContent = "ULTRON";
+        div.appendChild(name);
+    }
+
+    let content = document.createElement("div");
+    content.textContent = text;
+    div.appendChild(content);
+
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage() {
+
+    let input = document.getElementById("userInput");
+    let text = input.value.trim();
+
+    if (text === "") return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    setTimeout(function() {
+        let reply = getReply(text);
+        addMessage(reply, "bot");
+    }, 500);
+}
+
+function quick(text) {
+    document.getElementById("userInput").value = text;
+    sendMessage();
+}
+
+</script>
+
+</body>
+</html>
